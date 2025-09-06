@@ -4,6 +4,7 @@
 ARG USE_CUDA=false
 ARG USE_OLLAMA=false
 ARG USE_SLIM=false
+ARG ALLOW_OLLAMA_INSTALL=false
 # Tested with cu117 for CUDA 11 and cu121 for CUDA 12 (default)
 ARG USE_CUDA_VER=cu128
 # any sentence transformer model; models to use can be found at https://huggingface.co/models?library=sentence-transformers
@@ -144,11 +145,14 @@ RUN pip3 install --no-cache-dir uv && \
     mkdir -p /app/backend/data && chown -R $UID:$GID /app/backend/data/
 
 # Install Ollama if requested
-RUN if [ "$USE_OLLAMA" = "true" ] && [ "$USE_SLIM" != "true" ]; then \
+RUN if [ "$USE_OLLAMA" = "true" ] && [ "$USE_SLIM" != "true" ] && [ "$ALLOW_OLLAMA_INSTALL" = "true" ]; then \
     date +%s > /tmp/ollama_build_hash && \
     echo "Cache broken at timestamp: `cat /tmp/ollama_build_hash`" && \
+    echo "ALLOW_OLLAMA_INSTALL=true detected — installing Ollama" && \
     curl -fsSL https://ollama.com/install.sh | sh && \
     rm -rf /var/lib/apt/lists/*; \
+    else \
+    echo "Skipping Ollama install during image build (USE_OLLAMA=$USE_OLLAMA, ALLOW_OLLAMA_INSTALL=$ALLOW_OLLAMA_INSTALL)"; \
     fi
 
 # copy embedding weight from build

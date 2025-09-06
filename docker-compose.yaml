@@ -14,8 +14,9 @@ services:
       args:
         OLLAMA_BASE_URL: '/ollama'
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    # Use a locally-built image name so users can build from this codebase
+    image: shinmen8848/shinos:latest
+    container_name: shinos
     volumes:
       - open-webui:/app/backend/data
     depends_on:

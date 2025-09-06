@@ -23,7 +23,11 @@ stop:
 update:
 	# Calls the LLM update script
 	chmod +x update_ollama_models.sh
-	@./update_ollama_models.sh
+	@if [ "${AUTO_UPDATE_OLLAMA}" = "true" ]; then \
+		./update_ollama_models.sh || true; \
+	else \
+		echo "AUTO_UPDATE_OLLAMA not set to 'true' — skipping Ollama model updates."; \
+	fi
 	@git pull
 	$(DOCKER_COMPOSE) down
 	# Make sure the ollama-webui container is stopped before rebuilding

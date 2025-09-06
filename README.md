@@ -1,4 +1,4 @@
-# Open WebUI 👋
+# Otsu Shin 👋
 
 ![GitHub stars](https://img.shields.io/github/stars/open-webui/open-webui?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/open-webui/open-webui?style=social)
@@ -21,11 +21,11 @@ Passionate about open-source AI? [Join our team →](https://careers.openwebui.c
 >
 > Get **enhanced capabilities**, including **custom theming and branding**, **Service Level Agreement (SLA) support**, **Long-Term Support (LTS) versions**, and **more!**
 
-For more information, be sure to check out our [Open WebUI Documentation](https://docs.openwebui.com/).
+For more information, be sure to check out our [Otsu Shin Documentation](https://docs.openwebui.com/).
 
 ## Key Features of Open WebUI ⭐
 
-- 🚀 **Effortless Setup**: Install seamlessly using Docker or Kubernetes (kubectl, kustomize or helm) for a hassle-free experience with support for both `:ollama` and `:cuda` tagged images.
+-- 🚀 **Effortless Setup**: Install seamlessly using Docker or Kubernetes (kubectl, kustomize or helm) for a hassle-free experience with support for both `:ollama` and `:cuda` tagged images.
 
 - 🤝 **Ollama/OpenAI API Integration**: Effortlessly integrate OpenAI-compatible APIs for versatile conversations alongside Ollama models. Customize the OpenAI API URL to link with **LMStudio, GroqCloud, Mistral, OpenRouter, and more**.
 
@@ -190,6 +190,30 @@ This installation method uses a single container image that bundles Open WebUI w
 Both commands facilitate a built-in, hassle-free installation of both Open WebUI and Ollama, ensuring that you can get everything up and running swiftly.
 
 After installation, you can access Open WebUI at [http://localhost:3000](http://localhost:3000). Enjoy! 😄
+
+### Local build from source (this repository)
+
+If you prefer to build and run the Docker image from this codebase, follow these steps. The repository now uses the image name `shinmen8848/shinos:latest` and the compose service is named `shinos`.
+
+- Build the image locally:
+
+```bash
+docker build -t shinmen8848/shinos:latest .
+```
+
+- Start using Docker Compose (this will create volumes `ollama` and `open-webui`):
+
+```bash
+docker compose up -d
+```
+
+- Or run a single container directly:
+
+```bash
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name shinos --restart always shinmen8848/shinos:latest
+```
+
+Note: If you use Ollama as a separate container in the compose file, the `OLLAMA_BASE_URL` environment variable is set to `http://ollama:11434` and the service depends on the `ollama` container. Adjust ports and environment variables as needed.
 
 ### Other Installation Methods
 

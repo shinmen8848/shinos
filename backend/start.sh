@@ -35,9 +35,13 @@ if test "$WEBUI_SECRET_KEY $WEBUI_JWT_SECRET_KEY" = " "; then
   WEBUI_SECRET_KEY=$(cat "$KEY_FILE")
 fi
 
-if [[ "${USE_OLLAMA_DOCKER,,}" == "true" ]]; then
-    echo "USE_OLLAMA is set to true, starting ollama serve."
-    ollama serve &
+if [[ "${USE_OLLAMA_DOCKER,,}" == "true" && "${START_OLLAMA_LOCAL,,}" == "true" ]]; then
+  echo "USE_OLLAMA_DOCKER and START_OLLAMA_LOCAL are true — starting ollama serve."
+  ollama serve &
+else
+  if [[ "${USE_OLLAMA_DOCKER,,}" == "true" ]]; then
+    echo "USE_OLLAMA_DOCKER is true but START_OLLAMA_LOCAL is not — not starting local ollama."
+  fi
 fi
 
 if [[ "${USE_CUDA_DOCKER,,}" == "true" ]]; then

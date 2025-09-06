@@ -170,7 +170,7 @@ async def send_post_request(
                 log.error(f"Failed to parse error response: {e}")
                 raise HTTPException(
                     status_code=r.status,
-                    detail=f"Open WebUI: Server Connection Error",
+                    detail=f"Otsu Shin: Server Connection Error",
                 )
 
         r.raise_for_status()  # Raises an error for bad responses (4xx, 5xx)
@@ -199,7 +199,7 @@ async def send_post_request(
 
         raise HTTPException(
             status_code=r.status if r else 500,
-            detail=detail if e else "Open WebUI: Server Connection Error",
+            detail=detail if e else "Otsu Shin: Server Connection Error",
         )
     finally:
         if not stream:

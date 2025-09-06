@@ -39,7 +39,7 @@
 
 	import 'tippy.js/dist/tippy.css';
 
-	import { WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
+	import { WEBUI_BASE_URL, WEBUI_HOSTNAME, APP_NAME } from '$lib/constants';
 	import i18n, { initI18n, getLanguages, changeLanguage } from '$lib/i18n';
 	import { bestMatchingLanguage } from '$lib/utils';
 	import { getAllTags, getChatList } from '$lib/apis/chats';
@@ -280,7 +280,7 @@
 
 					if ($isLastActiveTab) {
 						if ($settings?.notificationEnabled ?? false) {
-							new Notification(`${title} • Open WebUI`, {
+							new Notification(`${title} • ${APP_NAME}`, {
 								body: content,
 								icon: `${WEBUI_BASE_URL}/static/favicon.png`
 							});
@@ -429,7 +429,7 @@
 			if (type === 'message') {
 				if ($isLastActiveTab) {
 					if ($settings?.notificationEnabled ?? false) {
-						new Notification(`${data?.user?.name} (#${event?.channel?.name}) • Open WebUI`, {
+						new Notification(`${data?.user?.name} (#${event?.channel?.name}) • ${APP_NAME}`, {
 							body: data?.content,
 							icon: data?.user?.profile_image_url ?? `${WEBUI_BASE_URL}/static/favicon.png`
 						});
