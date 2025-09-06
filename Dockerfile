@@ -37,6 +37,8 @@ RUN npm ci --force
 COPY . .
 ENV APP_BUILD_HASH=${BUILD_HASH}
 RUN npm run build
+# Ensure CHANGELOG.md exists so later multi-stage COPY won't fail when file is absent
+RUN [ -f CHANGELOG.md ] || touch CHANGELOG.md
 
 ######## WebUI backend ########
 FROM python:3.11-slim-bookworm AS base
@@ -66,10 +68,8 @@ ENV ENV=prod \
 ENV OLLAMA_BASE_URL="/ollama" \
     OPENAI_API_BASE_URL=""
 
-## API Key and Security Config ##
-ENV OPENAI_API_KEY="" \
-    WEBUI_SECRET_KEY="" \
-    SCARF_NO_ANALYTICS=true \
+## Security and Analytics Config ##
+ENV SCARF_NO_ANALYTICS=true \
     DO_NOT_TRACK=true \
     ANONYMIZED_TELEMETRY=false
 
