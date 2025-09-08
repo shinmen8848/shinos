@@ -1,22 +1,14 @@
 {
-	   // Removed invalid extends to .svelte-kit; restrict TS to frontend code only
-	   "compilerOptions": {
-		   "allowJs": true,
-		   "checkJs": true,
-		   "esModuleInterop": true,
-		   "forceConsistentCasingInFileNames": true,
-		   "resolveJsonModule": true,
-		   "skipLibCheck": true,
-		   "sourceMap": true,
-		   "strict": true,
-		   "noEmit": true
-	   },
-	   // Only include frontend TypeScript/JavaScript in src, cypress, and test folders
-	   "include": ["src/**/*", "cypress/**/*.ts", "test/**/*.ts"],
-	   // Exclude node_modules, build artifacts, backend and static assets
-	   "exclude": ["node_modules", "static", "backend", ".svelte-kit", "scripts"]
-	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
-	//
-	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
-	// from the referenced tsconfig.json - TypeScript does not merge them in
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"noEmit": true
+	}
 }
