@@ -90,7 +90,7 @@ const executeCode = async (id: string, code: string) => {
 
 // Handle messages from the main thread
 self.onmessage = async (event) => {
-	const { type, id, code, ...args } = event.data;
+	const { type, id, code } = event.data;
 
 	switch (type) {
 		case 'initialize':
