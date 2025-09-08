@@ -77,7 +77,7 @@ const executeCode = async (id: string, code: string) => {
 		self.cells[id].status = 'completed';
 	} catch (error) {
 		self.cells[id].status = 'error';
-		self.cells[id].stderr += `\n${error.toString()}`;
+		self.cells[id].stderr += `\n${error instanceof Error ? error.message : String(error)}`;
 	} finally {
 		// Notify parent thread when execution completes
 		self.postMessage({
@@ -90,7 +90,7 @@ const executeCode = async (id: string, code: string) => {
 
 // Handle messages from the main thread
 self.onmessage = async (event) => {
-	const { type, id, code, ...args } = event.data;
+	const { type, id, code } = event.data;
 
 	switch (type) {
 		case 'initialize':
